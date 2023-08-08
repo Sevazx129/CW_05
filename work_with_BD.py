@@ -1,10 +1,11 @@
 import psycopg2
 from read_command_db import read_command
-
+from config import config
+params = config()
 
 def create_database():
     """фугкция создание новой БД и таблиц с заголовками"""
-    conn = psycopg2.connect(host='localhost', user='postgres', password='qwerty', port=5432)
+    conn = psycopg2.connect(**params)
     conn.autocommit = True
     cur = conn.cursor()
 
@@ -13,7 +14,7 @@ def create_database():
     cur.close()
     conn.close()
 
-    conn = psycopg2.connect(host='localhost', database='database_hhru', user='postgres', password='qwerty', port=5432)
+    conn = psycopg2.connect(database='database_hhru', **params)
     with conn.cursor() as cur:
         cur.execute("""
             CREATE TABLE company_info (
@@ -38,7 +39,7 @@ def create_database():
 def write_table(data_list, company_id):
     """функция заполнения таблиц в БД нужными данными"""
 
-    conn = psycopg2.connect(host='localhost', database='database_hhru', user='postgres', password='qwerty', port=5432)  # Данные БД
+    conn = psycopg2.connect(database='database_hhru', **params)  # Данные БД
 
     cur = conn.cursor()  # Включение курсора
     corteg_for_table = (company_id, data_list['items'][0]['employer']['name'], data_list['found'])

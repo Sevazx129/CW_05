@@ -8,7 +8,7 @@ def connect_vacancy(id_company):
     params = {'employer_id': id_company,
               'per_page': '100'}
     headers = {
-        "User-Agent"  # User-Agent header взятый из личного кабинета хх ру
+        "User-Agent": 113036897  # User-Agent header взятый из личного кабинета хх ру
     }
 
     response = requests.get(url, params=params, headers=headers)  # Реализация подключения к API hh.ru
